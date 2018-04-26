@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <title>Coffe Shops Around</title>
+    <script type="text/javascript">
+      function getmap(){
+        var mapProp= {
+          center:new google.maps.LatLng(51.508742,-0.120850),
+          zoom:5,
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        getLocation();
+        //console.log(navigator.geolocation);
+      }
+
+
+  var x = document.getElementById("text");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }  console.log(showPosition);
+}
+
+function showPosition(position) {
+    var mapProp= {
+      center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+      zoom:14,
+    };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAa27Qfq18aD_DsupvFz902oRoqxJQu1Y&callback=myMap"></script>
+
+  </head>
+  <body onload="getmap()">
+    <div id="container">
+      <div id="parent">
+        <header>
+          <div class="coffee_shops_name">
+            <h1>Coffee Avenue</h1>
+            <p>Find your coffee quickly and easily</p>
+          </div>
+          <div class="logo">
+            <img src="img/logo1.jpg" alt="logo">
+          </div>
+        </header>
+        <div class="holder">
+          <p id="text"></p>
+          <div class="map_holder" id="googleMap">
+
+          </div>
+        </div>
+        <div class="coffee_shops">
+          Kafeterije
+        </div>
+        <footer>
+          Footer
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
